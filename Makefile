@@ -226,7 +226,7 @@ $(ELF): $(COBJ) $(AOBJ)
 	 $(CC) $(LDFLAGS) $(COBJ) $(AOBJ) $(LINKONLYOBJECTS) $(LIBDIRS) $(LIBS) -o $(ELF)
 
 
-dfu: $(TARGET)
+dfu: $(TARGET) $(PROJECT).eep  size
 	 -$(DFU) $(MCU) erase --debug 5 
 	 -$(DFU) $(MCU) flash --debug 5 $(TARGET)
 	 -$(DFU) $(MCU) flash-eeprom --debug 5 $(PROJECT).eep --suppress-bootloader-mem
