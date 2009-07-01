@@ -228,8 +228,8 @@ $(ELF): $(COBJ) $(AOBJ)
 
 dfu: $(TARGET)
 	 -$(DFU) $(MCU) erase --debug 5 
-	 -$(DFU) $(MCU) flash-eeprom --debug 5 $(PROJECT).eep --suppress-bootloader-mem
 	 -$(DFU) $(MCU) flash --debug 5 $(TARGET)
+	 -$(DFU) $(MCU) flash-eeprom --debug 5 $(PROJECT).eep --suppress-bootloader-mem
 	 -$(DFU) $(MCU) reset
 
 flash: $(TARGET)

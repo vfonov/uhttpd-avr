@@ -10,7 +10,7 @@
  * uIP buffer size (maximum packat size, DHCP needs at least 400bytes)
  */
 
-#define UIP_CONF_BUFFER_SIZE    500
+#define UIP_CONF_BUFFER_SIZE    400
 
 
 // Ethernet mac address, have to be unique on the net
@@ -62,7 +62,7 @@
 			       the default router */
 
 // Serial Debug configuration
-#define DEBUG_SERIAL 0
+#define DEBUG_SERIAL 1
 
 
 // which mechanism to use for protothreads
