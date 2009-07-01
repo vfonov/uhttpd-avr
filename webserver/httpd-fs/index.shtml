@@ -1,0 +1,8 @@
+<html><head><title>Welcome to the uNET-1.0 web server!</title></head>
+<body bgcolor="#fffeec" text="black">
+<H1>Welcome to the uNET-1.0 web server!</H1>
+<p><A href="hello.shtml">Hello CGI script</A></p>
+<p><A href="settings.shtml">Network Settings</A></p>
+<br>
+%! welcome
+</body></html>
