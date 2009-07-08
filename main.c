@@ -20,6 +20,7 @@
 #include "net/uip_arp.h"
 #include "compiler.h"
 #include "net_app/dhcpc.h"
+#include "net/uip-split.h"
 
 #define BUF ((struct uip_eth_hdr *)&uip_buf[0])
 
@@ -261,7 +262,11 @@ TASK(NetTask)
 					uip_len is set to a value > 0. */
 			if(uip_len > 0) {
 				uip_arp_out();
+#if UIP_SPLIT_HACK
+				uip_split_output();
+#else
 				nic_send();
+#endif 
 			}
 		}
 

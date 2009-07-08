@@ -170,7 +170,8 @@ SRC =   net/uip_arp.c \
 				net/nic.c \
 				net/uip.c \
 				net/psock.c \
-				net/timer.c 
+				net/timer.c \
+        net/uip-split.c
 
 ## DHCP client
 SRC +=  net_app/dhcpc.c 

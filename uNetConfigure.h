@@ -12,6 +12,9 @@
 
 #define UIP_CONF_BUFFER_SIZE    400
 
+// enable uip split hack - to circumvent slow-down due to delayed ACK algorithm
+// (will send each tcp packet in two halves)
+#define UIP_SPLIT_HACK          1
 
 // Ethernet mac address, have to be unique on the net
 
@@ -40,7 +43,7 @@
 			       this uIP node */
 #define UIP_IPADDR2     0   /**< The third octet of the IP address of
 			       this uIP node */
-#define UIP_IPADDR3     31   /**< The fourth octet of the IP address of
+#define UIP_IPADDR3     2   /**< The fourth octet of the IP address of
 			       this uIP node */
 
 #define UIP_NETMASK0    255 /**< The first octet of the netmask of
@@ -62,7 +65,7 @@
 			       the default router */
 
 // Serial Debug configuration
-#define DEBUG_SERIAL 1
+#define DEBUG_SERIAL 0
 
 
 // which mechanism to use for protothreads
