@@ -22,7 +22,9 @@ void nic_init(uint8_t *eth_addr)
 
 void nic_send(void)
 {
-	//printf_P(PSTR("Sending %d bytes\r\n"),(int)uip_len);
+#if DEBUG_SERIAL
+	printf_P(PSTR("Sending %d bytes\r\n"),(int)uip_len);
+#endif
   enc28j60PacketSend((u8 *)uip_buf, uip_len);
 }
 
@@ -51,4 +53,10 @@ uint16_t nic_poll(void)
 	enc28j60EndPacketReceive();
 		
 	return packetLength;
+}
+
+
+uint8_t nic_sending(void)
+{
+	return enc28j60PollPacketSending();
 }

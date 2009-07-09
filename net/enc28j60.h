@@ -29,7 +29,7 @@
 #define ENC28J60_INT_PIN	  7
 
 //#undef  ENC28J60_ENABLE_RESET
-#define  ENC28J60_ENABLE_INT
+//#define  ENC28J60_ENABLE_INT
 
 #define ENC28J60_ERRATA_B7
 
@@ -64,6 +64,7 @@ void enc28j60Init(uint8_t *eth_addr,u8 DuplexState);
 //dummy ?
 void enc28j60BeginPacketSend(u16 packetLength);
 void enc28j60EndPacketSend(void);
+u8   enc28j60PollPacketSending(void);
 //
 
 //! Packet transmit function.

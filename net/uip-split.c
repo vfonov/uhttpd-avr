@@ -37,8 +37,10 @@
 
 #include "uip-split.h"
 #include "uip.h"
+#include "nic.h"
 //#include "uip-fw.h"
 #include "uip_arch.h"
+#include <util/delay_basic.h>
 
 
 
@@ -50,11 +52,10 @@ uip_split_output(void)
 {
   u16_t tcplen, len1, len2;
 
-  /* We only try to split maximum sized TCP segments. */
-  if(BUF->proto == UIP_PROTO_TCP &&
-     uip_len == (UIP_BUFSIZE - UIP_LLH_LEN ) ) { // uip_len > (UIP_LLH_LEN+2
+  if(BUF->proto == UIP_PROTO_TCP  && 
+     uip_len > (UIP_TCPIP_HLEN + UIP_LLH_LEN + 10 ) ) {//== (UIP_BUFSIZE - UIP_LLH_LEN ) // 
 
-    tcplen = uip_len - UIP_TCPIP_HLEN;
+    tcplen = uip_len - (UIP_TCPIP_HLEN + UIP_LLH_LEN);
     /* Split the segment in two. If the original packet length was
        odd, we make the second packet one byte larger. */
     len1 = len2 = tcplen / 2;
@@ -64,7 +65,7 @@ uip_split_output(void)
 
     /* Create the first packet. This is done by altering the length
        field of the IP header and updating the checksums. */
-    uip_len = len1 + UIP_TCPIP_HLEN;
+    uip_len = len1 + UIP_TCPIP_HLEN ;
 #if UIP_CONF_IPV6
     /* For IPv6, the IP length field does not include the IPv6 IP header
        length. */
@@ -87,7 +88,10 @@ uip_split_output(void)
     
     /* Transmit the first packet. */
     /*    uip_fw_output();*/
+		uip_len+= UIP_LLH_LEN;
     nic_send();
+
+		while(nic_sending()) {asm("nop");}; //wait untill packet is sent away
 
     /* Now, create the second packet. To do this, it is not enough to
        just alter the length field, but we must also update the TCP
@@ -105,7 +109,6 @@ uip_split_output(void)
     BUF->len[1] = uip_len & 0xff;
 #endif /* UIP_CONF_IPV6 */
     
-    /*    uip_appdata += len1;*/
     memcpy(uip_appdata, (u8_t *)uip_appdata + len1, len2);
 
     uip_add32(BUF->seqno, len1);
@@ -126,6 +129,7 @@ uip_split_output(void)
 
     /* Transmit the second packet. */
     /*    uip_fw_output();*/
+		uip_len+= UIP_LLH_LEN;
     nic_send();
   } else {
     /*    uip_fw_output();*/

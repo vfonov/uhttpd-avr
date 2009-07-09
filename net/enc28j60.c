@@ -31,9 +31,9 @@
 #include "uip.h"
 #include "enc28j60.h"
 #include "enc28j60def.h"
-#ifdef ENC28J60_ERRATA_B7
+//#ifdef ENC28J60_ERRATA_B7
 #include <util/delay.h>
-#endif //ENC28J60_ERRATA_B7
+//#endif //ENC28J60_ERRATA_B7
 
 u8 Enc28j60Bank;
 u16 NextPacketPtr;
@@ -198,18 +198,20 @@ void enc28j60PhyWrite(u8 address, u16 data)
 
 void enc28j60SoftwareReset(void)
 {
+
 	// perform system reset
 	enc28j60WriteOp(ENC28J60_SOFT_RESET, 0, ENC28J60_SOFT_RESET);
   
-  #ifdef ENC28J60_ERRATA_B7
+  //#ifdef ENC28J60_ERRATA_B7
   _delay_ms(1); //wait for 1 ms
-  #else
+  //#else
 	// check CLKRDY bit to see if reset is complete
-	for(i=0;i<0x10;i++){
-		for(j=0;j<0xff;j++) ;
-	}
-	while(!(enc28j60Read(ESTAT) & ESTAT_CLKRDY));
-  #endif //ERRATA_B7
+	//int i;
+	//for(i=0;i<0x10;i++){
+	//	for(j=0;j<0xff;j++) ;
+	//}
+	//while(!(enc28j60Read(ESTAT) & ESTAT_CLKRDY));
+  //#endif //ENC28J60_ERRATA_B7
 }
 
 
@@ -380,7 +382,12 @@ void enc28j60PacketSend(u8 * packet, u16 len)
 	// send the contents of the transmit buffer onto the network
 	enc28j60WriteOp(ENC28J60_BIT_FIELD_SET, ECON1, ECON1_TXRTS);
 }
-	
+
+u8   enc28j60PollPacketSending(void)
+{
+	return enc28j60Read(ECON1) & ECON1_TXRTS;
+}
+
 void enc28j60EndPacketSend(void)
 {
 //

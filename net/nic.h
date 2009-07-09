@@ -11,4 +11,6 @@ void nic_send(void);
 
 uint16_t nic_poll(void);
 
+uint8_t nic_sending(void);
+
 #endif /* __NIC_H__ */

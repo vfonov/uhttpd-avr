@@ -14,7 +14,12 @@
 
 // enable uip split hack - to circumvent slow-down due to delayed ACK algorithm
 // (will send each tcp packet in two halves)
-#define UIP_SPLIT_HACK          1
+#define UIP_SPLIT_HACK          0
+
+// enable empty packet - to circumvent slow-down due to delayed ACK algorithm
+// (will send each tcp packet in two halves) - alternative to UIP_SPLIT_HACK
+#define UIP_EMPTY_PACKET_HACK   1
+
 
 // Ethernet mac address, have to be unique on the net
 
@@ -37,13 +42,13 @@
 #define USE_DHCP 0
 
 
-#define UIP_IPADDR0     192 /**< The first octet of the IP address of
+#define UIP_IPADDR0     10 /**< The first octet of the IP address of
 			       this uIP node  */
-#define UIP_IPADDR1     168 /**< The second octet of the IP address of
+#define UIP_IPADDR1     0 /**< The second octet of the IP address of
 			       this uIP node */
-#define UIP_IPADDR2     0   /**< The third octet of the IP address of
+#define UIP_IPADDR2     2   /**< The third octet of the IP address of
 			       this uIP node */
-#define UIP_IPADDR3     2   /**< The fourth octet of the IP address of
+#define UIP_IPADDR3     20   /**< The fourth octet of the IP address of
 			       this uIP node */
 
 #define UIP_NETMASK0    255 /**< The first octet of the netmask of
@@ -55,13 +60,13 @@
 #define UIP_NETMASK3    0   /**< The fourth octet of the netmask of
 			       this uIP node */
 
-#define UIP_DRIPADDR0   192 /**< The first octet of the IP address of
+#define UIP_DRIPADDR0   10 /**< The first octet of the IP address of
 			       the default router */
-#define UIP_DRIPADDR1   168 /**< The second octet of the IP address of
+#define UIP_DRIPADDR1   0 /**< The second octet of the IP address of
 			       the default router */
-#define UIP_DRIPADDR2   0   /**< The third octet of the IP address of
+#define UIP_DRIPADDR2   2   /**< The third octet of the IP address of
 			       the default router */
-#define UIP_DRIPADDR3   1   /**< The fourth octet of the IP address of
+#define UIP_DRIPADDR3   2   /**< The fourth octet of the IP address of
 			       the default router */
 
 // Serial Debug configuration

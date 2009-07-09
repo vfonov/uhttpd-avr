@@ -20,7 +20,11 @@
 #include "net/uip_arp.h"
 #include "compiler.h"
 #include "net_app/dhcpc.h"
+#if UIP_SPLIT_HACK
 #include "net/uip-split.h"
+#elif UIP_EMPTY_PACKET_HACK
+#include "net/uip-empty-packet.h"
+#endif 
 
 #define BUF ((struct uip_eth_hdr *)&uip_buf[0])
 
@@ -239,7 +243,13 @@ TASK(NetTask)
 					uip_len is set to a value > 0. */
 			if(uip_len > 0) {
 				uip_arp_out();
+#if UIP_SPLIT_HACK
+				uip_split_output();
+#elif UIP_EMPTY_PACKET_HACK
+				uip_emtpy_packet_output();
+#else 
 				nic_send();
+#endif 
 			}
 		} else if(BUF->type == htons(UIP_ETHTYPE_ARP)) {
 
@@ -248,6 +258,7 @@ TASK(NetTask)
 					should be sent out on the network, the global variable
 					uip_len is set to a value > 0. */
 			if(uip_len > 0) {
+
 				nic_send();
 
 			}
@@ -264,7 +275,9 @@ TASK(NetTask)
 				uip_arp_out();
 #if UIP_SPLIT_HACK
 				uip_split_output();
-#else
+#elif UIP_EMPTY_PACKET_HACK
+				uip_emtpy_packet_output();
+#else 
 				nic_send();
 #endif 
 			}
@@ -289,5 +302,6 @@ TASK(NetTask)
 			uip_arp_timer();
 		}
 	}
+	while(nic_sending()) {asm("nop");}; //wait untill packet is sent away
 }
 
