@@ -24,8 +24,9 @@ A similar project, aiming for a more general nic/avr approach is avr-uip
 * Setup the LAN to use 192.168.0. subnet, and then use your favorite web browser to access http://192.168.0.2 ( NOTE: it is possible to change default network settings by editing uNetConfigure.h file, parameters UIP_IPADDR - desired IP adress , UIP_NETMASK - network mask and UIP_DRIPADDR - default gateway).
 
 ## Memory usage
-DHCP+uHTTPD+DFU Bootloader compiled using avr-gcc 4.3.2 and avr-libc 1.6.6: ```
+DHCP+uHTTPD+DFU Bootloader compiled using avr-gcc 4.3.2 and avr-libc 1.6.6: 
 
+```
 AVR Memory Usage
 Device: atmega32u4
 
@@ -33,7 +34,8 @@ Program: 25496 bytes (77.8% Full) (.text + .data + .bootloader)
 
 Data: 2225 bytes (86.9% Full) (.data + .bss + .noinit)
 
-EEPROM: 19 bytes (1.9% Full) (.eeprom) ```
-
+EEPROM: 19 bytes (1.9% Full) (.eeprom) 
+```
 ## Project
 Project on a solderless breadboard, Note: JTAG header and USB-Serial is only needed for debugging
+___photos perished on google code___
