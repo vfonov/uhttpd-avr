@@ -38,4 +38,5 @@ EEPROM: 19 bytes (1.9% Full) (.eeprom)
 ```
 ## Project
 Project on a solderless breadboard, Note: JTAG header and USB-Serial is only needed for debugging
-___photos perished on google code___
+
+![](docs/overview.jpeg)
